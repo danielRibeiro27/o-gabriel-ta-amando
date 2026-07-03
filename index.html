@@ -1,0 +1,1492 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>O Gabriel Tá Amando 💖</title>
+  <style>
+    /* ─── Reset & Base ──────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --pink:    #ff6b9d;
+      --purple:  #c44dff;
+      --violet:  #7b2fff;
+      --dark:    #0d0d1a;
+      --darker:  #07070f;
+      --card-bg: rgba(255,255,255,0.06);
+      --border:  rgba(255,255,255,0.12);
+      --text:    #f0e6ff;
+      --muted:   #9b8ab8;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--dark);
+      color: var(--text);
+      overflow-x: hidden;
+      user-select: none;
+    }
+    a { color: var(--pink); text-decoration: none; }
+
+    /* ─── Custom Scrollbar ──────────────────────────────── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--darker); }
+    ::-webkit-scrollbar-thumb { background: var(--purple); border-radius: 3px; }
+
+    /* ─── PARALLAX HERO ─────────────────────────────────── */
+    #hero {
+      position: relative;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      text-align: center;
+    }
+    .parallax-layer {
+      position: absolute;
+      inset: -20% -10%;
+      will-change: transform;
+      pointer-events: none;
+    }
+    #layer-stars {
+      background:
+        radial-gradient(1px 1px at 10% 15%, #fff 0%, transparent 100%),
+        radial-gradient(1px 1px at 30% 60%, #fff 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 55% 25%, #fff 0%, transparent 100%),
+        radial-gradient(1px 1px at 75% 80%, #fff 0%, transparent 100%),
+        radial-gradient(1px 1px at 85% 40%, #fff 0%, transparent 100%),
+        radial-gradient(2px 2px at 20% 90%, rgba(255,107,157,.8) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 65% 55%, rgba(196,77,255,.8) 0%, transparent 100%),
+        radial-gradient(1px 1px at 42% 70%, #fff 0%, transparent 100%),
+        radial-gradient(1px 1px at 90% 20%, #fff 0%, transparent 100%);
+      background-size: 400px 400px;
+    }
+    #layer-hearts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 60px;
+      padding: 40px;
+      opacity: .12;
+      font-size: 2rem;
+    }
+    #layer-glow {
+      background:
+        radial-gradient(ellipse 60% 40% at 30% 50%, rgba(196,77,255,.25) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 35% at 70% 50%, rgba(255,107,157,.2) 0%, transparent 70%);
+    }
+    #hero-content { position: relative; z-index: 10; }
+    #hero-content h1 {
+      font-size: clamp(2.5rem, 8vw, 6rem);
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--pink), var(--purple), var(--violet));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.1;
+      filter: drop-shadow(0 0 30px rgba(196,77,255,.5));
+    }
+    #hero-content p {
+      margin-top: 1rem;
+      font-size: clamp(1rem, 3vw, 1.4rem);
+      color: var(--muted);
+      letter-spacing: .05em;
+    }
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .4rem;
+      color: var(--muted);
+      font-size: .8rem;
+      animation: bounce 2s infinite;
+    }
+    .scroll-hint::after {
+      content: '▼';
+      font-size: 1.2rem;
+      color: var(--pink);
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(8px); }
+    }
+
+    /* ─── PARALLAX SHOWCASE ─────────────────────────────── */
+    #parallax-showcase {
+      padding: 6rem 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .showcase-scene {
+      position: relative;
+      height: 420px;
+      max-width: 900px;
+      margin: 3rem auto 0;
+      perspective: 800px;
+    }
+    .scene-bg {
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      background: linear-gradient(180deg, #1a0a2e 0%, #0d1a3a 60%, #0a2a1a 100%);
+      overflow: hidden;
+    }
+    .scene-bg::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 30% at 50% 0%, rgba(196,77,255,.15) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 20% at 50% 100%, rgba(0,200,100,.1) 0%, transparent 70%);
+    }
+    .plx-item {
+      position: absolute;
+      will-change: transform;
+      text-align: center;
+      font-size: 3rem;
+    }
+    #plx-moon  { top: 8%; left: 50%; transform: translateX(-50%); font-size: 4rem; }
+    #plx-cloud1{ top: 20%; left: 10%; font-size: 3.5rem; }
+    #plx-cloud2{ top: 15%; right: 12%; font-size: 2.5rem; }
+    #plx-mount { bottom: 30%; left: 50%; transform: translateX(-50%); font-size: 6rem; }
+    #plx-trees { bottom: 10%; left: 50%; transform: translateX(-50%); font-size: 5rem; letter-spacing: 4px; }
+    #plx-heart1{ top: 30%; left: 25%; font-size: 2rem; }
+    #plx-heart2{ top: 35%; right: 20%; font-size: 1.5rem; }
+    .scene-label {
+      position: absolute;
+      bottom: -2.5rem;
+      left: 0; right: 0;
+      font-size: .8rem;
+      color: var(--muted);
+    }
+
+    /* ─── SECTION HEADERS ───────────────────────────────── */
+    .section-header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+    .section-header h2 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--pink), var(--purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .section-header p {
+      color: var(--muted);
+      margin-top: .5rem;
+      font-size: 1rem;
+    }
+    .pill {
+      display: inline-block;
+      background: rgba(196,77,255,.15);
+      border: 1px solid rgba(196,77,255,.4);
+      color: var(--purple);
+      padding: .3rem .9rem;
+      border-radius: 999px;
+      font-size: .8rem;
+      font-weight: 600;
+      letter-spacing: .05em;
+      margin-bottom: .8rem;
+    }
+
+    /* ─── DASHBOARD ─────────────────────────────────────── */
+    #dashboard { padding: 5rem 2rem; }
+    #board {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      min-height: 300px;
+    }
+    .widget {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.4rem;
+      cursor: grab;
+      transition: box-shadow .2s, border-color .2s, transform .15s;
+      backdrop-filter: blur(12px);
+      position: relative;
+      overflow: hidden;
+    }
+    .widget::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(255,107,157,.07) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .widget:active { cursor: grabbing; }
+    .widget.dragging {
+      opacity: .6;
+      box-shadow: 0 0 0 2px var(--purple);
+      transform: scale(.97);
+      z-index: 100;
+    }
+    .widget.drag-over {
+      border-color: var(--pink);
+      box-shadow: 0 0 20px rgba(255,107,157,.3);
+    }
+    .widget-icon { font-size: 2.2rem; margin-bottom: .6rem; }
+    .widget-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: .4rem;
+    }
+    .widget-body { font-size: .88rem; color: var(--muted); line-height: 1.6; }
+    .widget-handle {
+      position: absolute;
+      top: .8rem; right: .8rem;
+      color: var(--muted);
+      font-size: .75rem;
+      cursor: grab;
+    }
+    .widget-stat {
+      font-size: 2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--pink), var(--purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .progress-bar {
+      height: 6px;
+      background: rgba(255,255,255,.1);
+      border-radius: 3px;
+      margin-top: .8rem;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      border-radius: 3px;
+      background: linear-gradient(90deg, var(--pink), var(--purple));
+      transition: width .5s ease;
+    }
+    .heart-rain {
+      display: flex;
+      gap: .4rem;
+      flex-wrap: wrap;
+      margin-top: .6rem;
+    }
+    .heart-btn {
+      background: rgba(255,107,157,.15);
+      border: 1px solid rgba(255,107,157,.3);
+      border-radius: 8px;
+      color: var(--pink);
+      padding: .3rem .8rem;
+      cursor: pointer;
+      font-size: .85rem;
+      transition: background .2s;
+    }
+    .heart-btn:hover { background: rgba(255,107,157,.3); }
+    .mini-chart {
+      display: flex;
+      align-items: flex-end;
+      gap: 4px;
+      height: 50px;
+      margin-top: .8rem;
+    }
+    .bar-item {
+      flex: 1;
+      border-radius: 3px 3px 0 0;
+      background: linear-gradient(180deg, var(--purple), var(--pink));
+      opacity: .7;
+      transition: opacity .2s;
+    }
+    .bar-item:hover { opacity: 1; }
+    .board-hint {
+      text-align: center;
+      color: var(--muted);
+      font-size: .85rem;
+      margin-top: 1rem;
+    }
+
+    /* ─── P2P FILE SHARING ──────────────────────────────── */
+    #p2p { padding: 5rem 2rem; }
+    .p2p-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    @media (max-width: 640px) { .p2p-grid { grid-template-columns: 1fr; } }
+    .p2p-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.6rem;
+      backdrop-filter: blur(12px);
+    }
+    .p2p-card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+    .p2p-status {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      font-size: .8rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+    .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--muted);
+      transition: background .4s;
+    }
+    .dot.connected { background: #4cff91; box-shadow: 0 0 6px #4cff91; }
+    .dot.connecting { background: #ffd700; animation: pulse 1s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+    textarea.sdp-box {
+      width: 100%;
+      height: 100px;
+      background: rgba(0,0,0,.4);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--text);
+      font-size: .78rem;
+      font-family: monospace;
+      padding: .7rem;
+      resize: vertical;
+      outline: none;
+      transition: border-color .2s;
+    }
+    textarea.sdp-box:focus { border-color: var(--purple); }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      padding: .6rem 1.2rem;
+      border-radius: 10px;
+      border: none;
+      font-size: .88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity .2s, transform .1s;
+    }
+    .btn:active { transform: scale(.97); }
+    .btn:disabled { opacity: .4; cursor: not-allowed; }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--pink), var(--purple));
+      color: #fff;
+    }
+    .btn-secondary {
+      background: rgba(255,255,255,.08);
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+    .btn-sm { padding: .4rem .9rem; font-size: .8rem; }
+    .btn-row { display: flex; gap: .6rem; flex-wrap: wrap; margin-top: .8rem; }
+    .drop-zone {
+      border: 2px dashed var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      text-align: center;
+      color: var(--muted);
+      font-size: .88rem;
+      transition: border-color .2s, background .2s;
+      cursor: pointer;
+      margin-top: 1rem;
+    }
+    .drop-zone.active {
+      border-color: var(--pink);
+      background: rgba(255,107,157,.07);
+      color: var(--text);
+    }
+    .drop-zone-icon { font-size: 2rem; margin-bottom: .4rem; }
+    .file-queue {
+      margin-top: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: .5rem;
+    }
+    .file-item {
+      display: flex;
+      align-items: center;
+      gap: .7rem;
+      background: rgba(0,0,0,.3);
+      border-radius: 8px;
+      padding: .5rem .8rem;
+      font-size: .82rem;
+    }
+    .file-item-name { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .file-item-size { color: var(--muted); flex-shrink: 0; }
+    .xfer-bar { height: 4px; border-radius: 2px; background: rgba(255,255,255,.1); margin-top: .3rem; overflow: hidden; }
+    .xfer-fill { height: 100%; background: linear-gradient(90deg, var(--pink), var(--purple)); border-radius: 2px; transition: width .1s; }
+    #p2p-log {
+      max-width: 900px;
+      margin: 1rem auto 0;
+      background: rgba(0,0,0,.4);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem;
+      font-family: monospace;
+      font-size: .78rem;
+      color: var(--muted);
+      max-height: 150px;
+      overflow-y: auto;
+    }
+    .log-line { margin: .2rem 0; }
+    .log-line.ok  { color: #4cff91; }
+    .log-line.err { color: #ff6b6b; }
+    .log-line.info{ color: #6bd4ff; }
+
+    /* ─── FOOTER ────────────────────────────────────────── */
+    footer {
+      text-align: center;
+      padding: 3rem 1rem;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: .85rem;
+    }
+    footer span { color: var(--pink); }
+
+    /* ─── CONTEXT MENU ──────────────────────────────────── */
+    #ctx-menu {
+      position: fixed;
+      z-index: 9999;
+      background: rgba(18, 10, 35, .95);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: .4rem;
+      min-width: 200px;
+      box-shadow: 0 8px 40px rgba(0,0,0,.6), 0 0 0 1px rgba(196,77,255,.15);
+      backdrop-filter: blur(20px);
+      display: none;
+      animation: ctx-in .12s ease;
+    }
+    @keyframes ctx-in {
+      from { opacity: 0; transform: scale(.95) translateY(-4px); }
+      to   { opacity: 1; transform: scale(1)  translateY(0); }
+    }
+    .ctx-item {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      padding: .55rem .9rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: .88rem;
+      color: var(--text);
+      transition: background .15s;
+    }
+    .ctx-item:hover { background: rgba(196,77,255,.2); color: #fff; }
+    .ctx-item.danger:hover { background: rgba(255,80,80,.2); color: #ff6b6b; }
+    .ctx-sep {
+      height: 1px;
+      background: var(--border);
+      margin: .3rem .4rem;
+    }
+    .ctx-icon { font-size: 1rem; width: 1.2rem; text-align: center; }
+
+    /* ─── FLOATING HEARTS ───────────────────────────────── */
+    .float-heart {
+      position: fixed;
+      pointer-events: none;
+      z-index: 9000;
+      font-size: 1.4rem;
+      animation: float-up 1.8s ease-out forwards;
+    }
+    @keyframes float-up {
+      0%   { opacity: 1; transform: translateY(0) scale(1); }
+      100% { opacity: 0; transform: translateY(-120px) scale(.5); }
+    }
+
+    /* ─── TOAST ─────────────────────────────────────────── */
+    #toast-container {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      z-index: 8000;
+      display: flex;
+      flex-direction: column;
+      gap: .5rem;
+    }
+    .toast {
+      background: rgba(18,10,35,.95);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: .75rem 1.2rem;
+      font-size: .85rem;
+      color: var(--text);
+      backdrop-filter: blur(20px);
+      animation: slide-in .25s ease;
+      min-width: 220px;
+      max-width: 320px;
+    }
+    @keyframes slide-in {
+      from { opacity: 0; transform: translateX(40px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    .toast.success { border-left: 3px solid #4cff91; }
+    .toast.error   { border-left: 3px solid #ff6b6b; }
+    .toast.info    { border-left: 3px solid var(--purple); }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════
+     CUSTOM CONTEXT MENU
+═══════════════════════════════════════════════════════════ -->
+<div id="ctx-menu" role="menu" aria-label="Menu contextual">
+  <div class="ctx-item" data-action="heart">    <span class="ctx-icon">💖</span> Mandar amor pro Gabriel</div>
+  <div class="ctx-item" data-action="copy">     <span class="ctx-icon">📋</span> Copiar</div>
+  <div class="ctx-item" data-action="share">    <span class="ctx-icon">🔗</span> Compartilhar link</div>
+  <div class="ctx-sep"></div>
+  <div class="ctx-item" data-action="top">      <span class="ctx-icon">⬆️</span> Ir pro topo</div>
+  <div class="ctx-item" data-action="dashboard"><span class="ctx-icon">🎛️</span> Ir pro Dashboard</div>
+  <div class="ctx-item" data-action="p2p">      <span class="ctx-icon">📡</span> Ir pro P2P</div>
+  <div class="ctx-sep"></div>
+  <div class="ctx-item danger" data-action="reset"><span class="ctx-icon">🔄</span> Resetar Dashboard</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     HERO — SCROLL-LINKED PARALLAX
+═══════════════════════════════════════════════════════════ -->
+<section id="hero">
+  <div id="layer-stars"  class="parallax-layer" data-speed="0.15"></div>
+  <div id="layer-glow"   class="parallax-layer" data-speed="0.30"></div>
+  <div id="layer-hearts" class="parallax-layer" data-speed="0.45" id="hearts-layer"></div>
+
+  <div id="hero-content">
+    <h1>O Gabriel<br>Tá Amando 💖</h1>
+    <p>Uma experiência interativa feita com muito carinho</p>
+  </div>
+
+  <div class="scroll-hint">Role para explorar</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     PARALLAX SHOWCASE SCENE
+═══════════════════════════════════════════════════════════ -->
+<section id="parallax-showcase">
+  <div class="section-header">
+    <div class="pill">✨ Parallax</div>
+    <h2>Parallax Vinculado ao Scroll</h2>
+    <p>Cada camada se move em velocidade diferente conforme você rola a página</p>
+  </div>
+
+  <div class="showcase-scene" id="showcase-scene">
+    <div class="scene-bg"></div>
+    <div class="plx-item" id="plx-moon"   data-plx="0.08">🌕</div>
+    <div class="plx-item" id="plx-cloud1" data-plx="0.15">☁️</div>
+    <div class="plx-item" id="plx-cloud2" data-plx="0.20">🌥️</div>
+    <div class="plx-item" id="plx-heart1" data-plx="0.35">💜</div>
+    <div class="plx-item" id="plx-heart2" data-plx="0.40">💗</div>
+    <div class="plx-item" id="plx-mount"  data-plx="0.55">⛰️</div>
+    <div class="plx-item" id="plx-trees"  data-plx="0.70">🌲🌲🌲🌲</div>
+    <div class="scene-label">← Role a página para ver o parallax em ação →</div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     DRAG-AND-DROP DASHBOARD
+═══════════════════════════════════════════════════════════ -->
+<section id="dashboard">
+  <div class="section-header">
+    <div class="pill">🎛️ Dashboard</div>
+    <h2>Dashboard Drag-and-Drop</h2>
+    <p>Arraste os cards para reorganizar o painel do jeito que quiser</p>
+  </div>
+
+  <div id="board">
+    <!-- widgets are injected by JS -->
+  </div>
+  <p class="board-hint">💡 Arraste e solte os cards para reorganizá-los • Clique com botão direito para mais opções</p>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     P2P FILE SHARING
+═══════════════════════════════════════════════════════════ -->
+<section id="p2p">
+  <div class="section-header">
+    <div class="pill">📡 P2P</div>
+    <h2>Compartilhamento P2P de Arquivos</h2>
+    <p>Troca de arquivos direto entre navegadores via WebRTC — sem servidor intermediário</p>
+  </div>
+
+  <div class="p2p-grid">
+    <!-- SENDER PANEL -->
+    <div class="p2p-card">
+      <h3>📤 Remetente (Peer A)</h3>
+      <div class="p2p-status">
+        <div class="dot" id="dot-a"></div>
+        <span id="status-a">Desconectado</span>
+      </div>
+
+      <div style="margin-bottom:.6rem">
+        <label style="font-size:.8rem;color:var(--muted)">1. Crie a oferta:</label>
+        <div class="btn-row">
+          <button class="btn btn-primary btn-sm" id="btn-create-offer">🤝 Criar Oferta</button>
+        </div>
+      </div>
+
+      <div style="margin-bottom:.6rem">
+        <label style="font-size:.8rem;color:var(--muted)">2. Sua oferta SDP (copie para Peer B):</label>
+        <textarea class="sdp-box" id="offer-out" readonly placeholder="A oferta aparecerá aqui..."></textarea>
+        <div class="btn-row">
+          <button class="btn btn-secondary btn-sm" id="btn-copy-offer">📋 Copiar Oferta</button>
+        </div>
+      </div>
+
+      <div style="margin-bottom:.6rem">
+        <label style="font-size:.8rem;color:var(--muted)">3. Cole a resposta do Peer B:</label>
+        <textarea class="sdp-box" id="answer-in" placeholder="Cole a resposta aqui..."></textarea>
+        <div class="btn-row">
+          <button class="btn btn-primary btn-sm" id="btn-set-answer">✅ Confirmar Resposta</button>
+        </div>
+      </div>
+
+      <div>
+        <label style="font-size:.8rem;color:var(--muted)">4. Envie arquivos:</label>
+        <div class="drop-zone" id="drop-zone" tabindex="0" role="button" aria-label="Área de drop de arquivo">
+          <div class="drop-zone-icon">📁</div>
+          <div>Arraste arquivos aqui ou <strong style="color:var(--pink)">clique para selecionar</strong></div>
+          <div style="font-size:.75rem;margin-top:.3rem;color:var(--muted)">Qualquer tipo • Múltiplos arquivos</div>
+        </div>
+        <input type="file" id="file-input" multiple style="display:none" />
+        <div class="file-queue" id="send-queue"></div>
+        <div class="btn-row" style="margin-top:.8rem">
+          <button class="btn btn-primary" id="btn-send-files" disabled>🚀 Enviar Arquivos</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- RECEIVER PANEL -->
+    <div class="p2p-card">
+      <h3>📥 Destinatário (Peer B)</h3>
+      <div class="p2p-status">
+        <div class="dot" id="dot-b"></div>
+        <span id="status-b">Desconectado</span>
+      </div>
+
+      <div style="margin-bottom:.6rem">
+        <label style="font-size:.8rem;color:var(--muted)">1. Cole a oferta do Peer A:</label>
+        <textarea class="sdp-box" id="offer-in" placeholder="Cole a oferta aqui..."></textarea>
+      </div>
+
+      <div style="margin-bottom:.6rem">
+        <label style="font-size:.8rem;color:var(--muted)">2. Gere a resposta:</label>
+        <div class="btn-row">
+          <button class="btn btn-primary btn-sm" id="btn-create-answer">📬 Criar Resposta</button>
+        </div>
+      </div>
+
+      <div style="margin-bottom:.6rem">
+        <label style="font-size:.8rem;color:var(--muted)">3. Sua resposta SDP (copie para Peer A):</label>
+        <textarea class="sdp-box" id="answer-out" readonly placeholder="A resposta aparecerá aqui..."></textarea>
+        <div class="btn-row">
+          <button class="btn btn-secondary btn-sm" id="btn-copy-answer">📋 Copiar Resposta</button>
+        </div>
+      </div>
+
+      <div>
+        <label style="font-size:.8rem;color:var(--muted)">4. Arquivos recebidos:</label>
+        <div class="file-queue" id="recv-queue" style="margin-top:.6rem;min-height:60px;background:rgba(0,0,0,.2);border-radius:8px;padding:.4rem;">
+          <div style="color:var(--muted);font-size:.8rem;padding:.4rem">Aguardando conexão e arquivos...</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOG -->
+  <div id="p2p-log">
+    <div class="log-line info">» Sistema P2P inicializado. Aguardando ação...</div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     FOOTER
+═══════════════════════════════════════════════════════════ -->
+<footer>
+  <p>Feito com <span>💖</span> para o Gabriel &nbsp;•&nbsp; <span>O Gabriel Tá Amando</span> &nbsp;•&nbsp; 2025</p>
+  <p style="margin-top:.4rem;font-size:.78rem">
+    Clique com botão direito em qualquer lugar para ver o menu personalizado
+  </p>
+</footer>
+
+<!-- ─── Toast Container ─── -->
+<div id="toast-container"></div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     JAVASCRIPT
+═══════════════════════════════════════════════════════════ -->
+<script>
+/* ════════════════════════════════════════════════════════════
+   UTILITIES
+════════════════════════════════════════════════════════════ */
+function toast(msg, type = 'info', duration = 3000) {
+  const el = document.createElement('div');
+  el.className = `toast ${type}`;
+  el.textContent = msg;
+  document.getElementById('toast-container').appendChild(el);
+  setTimeout(() => el.remove(), duration);
+}
+
+function copyToClipboard(text) {
+  navigator.clipboard.writeText(text).then(() => {
+    toast('Copiado para a área de transferência! 📋', 'success');
+  }).catch(() => {
+    // fallback
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    ta.remove();
+    toast('Copiado! 📋', 'success');
+  });
+}
+
+function formatBytes(n) {
+  if (n < 1024) return n + ' B';
+  if (n < 1048576) return (n / 1024).toFixed(1) + ' KB';
+  return (n / 1048576).toFixed(2) + ' MB';
+}
+
+/* ════════════════════════════════════════════════════════════
+   1. SCROLL-LINKED PARALLAX
+════════════════════════════════════════════════════════════ */
+(function initParallax() {
+  const heroLayers = document.querySelectorAll('#hero .parallax-layer');
+  const sceneItems = document.querySelectorAll('[data-plx]');
+  const showcaseEl = document.getElementById('parallax-showcase');
+  let ticking = false;
+
+  // Fill hearts layer
+  const heartsEl = document.getElementById('layer-hearts');
+  if (heartsEl) {
+    const emojis = ['💖','💜','💗','💕','💝','✨','🌸','💫','🎀','💞'];
+    for (let i = 0; i < 40; i++) {
+      const span = document.createElement('span');
+      span.textContent = emojis[i % emojis.length];
+      heartsEl.appendChild(span);
+    }
+  }
+
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      const sy = window.scrollY;
+
+      // Hero layers — move upward as user scrolls
+      heroLayers.forEach(layer => {
+        const speed = parseFloat(layer.dataset.speed) || 0.2;
+        layer.style.transform = `translateY(${sy * speed}px)`;
+      });
+
+      // Showcase scene items — relative to scene offset
+      const sceneTop = showcaseEl.getBoundingClientRect().top + sy;
+      const sceneMid = sceneTop + showcaseEl.offsetHeight / 2;
+      const delta = sy - sceneMid + window.innerHeight / 2;
+
+      sceneItems.forEach(item => {
+        const speed = parseFloat(item.dataset.plx) || 0.2;
+        const shift = delta * speed;
+        // Preserve original transform for centered items (translateX(-50%))
+        const base = item.id === 'plx-moon' || item.id === 'plx-mount' || item.id === 'plx-trees'
+          ? 'translateX(-50%) '
+          : '';
+        item.style.transform = base + `translateY(${shift}px)`;
+      });
+
+      ticking = false;
+    });
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll(); // initial
+})();
+
+/* ════════════════════════════════════════════════════════════
+   2. DRAG-AND-DROP DASHBOARD
+════════════════════════════════════════════════════════════ */
+(function initDashboard() {
+  const STORAGE_KEY = 'gabriel-dashboard-order';
+
+  const WIDGETS_DATA = [
+    {
+      id: 'w-love',
+      icon: '💖',
+      title: 'Amor pelo Gabriel',
+      html: `<div class="widget-stat" id="love-count">0</div>
+             <p style="font-size:.8rem;color:var(--muted);margin-top:.3rem">cliques de amor hoje</p>
+             <div class="heart-rain">
+               <button class="heart-btn" id="heart-clicker">💖 Dar amor</button>
+             </div>`
+    },
+    {
+      id: 'w-vibes',
+      icon: '🌈',
+      title: 'Nível de Vibe',
+      html: `<p style="color:var(--muted);font-size:.85rem">Intensidade do amor</p>
+             <div class="progress-bar"><div class="progress-fill" style="width:87%" id="vibe-bar"></div></div>
+             <p style="font-size:.75rem;color:var(--muted);margin-top:.4rem">87% — Muito Alto 🔥</p>`
+    },
+    {
+      id: 'w-msgs',
+      icon: '💌',
+      title: 'Mensagens de Amor',
+      html: `<div class="widget-stat">142</div>
+             <p style="font-size:.8rem;color:var(--muted);margin-top:.3rem">mensagens enviadas este mês</p>
+             <div class="mini-chart" id="msg-chart"></div>`
+    },
+    {
+      id: 'w-playlist',
+      icon: '🎵',
+      title: 'Playlist do Gabriel',
+      html: `<div style="display:flex;flex-direction:column;gap:.35rem">
+               ${['Perfect – Ed Sheeran','Thinking Out Loud','Can\'t Help Falling','All of Me','A Thousand Years']
+                 .map(s => `<div style="font-size:.82rem;display:flex;align-items:center;gap:.5rem">
+                   <span style="color:var(--pink)">♪</span><span style="color:var(--muted)">${s}</span></div>`)
+                 .join('')}
+             </div>`
+    },
+    {
+      id: 'w-quote',
+      icon: '✨',
+      title: 'Citação do Dia',
+      html: `<p style="font-size:.88rem;color:var(--muted);line-height:1.7;font-style:italic" id="quote-text">
+               "O amor não é apenas um sentimento, é uma escolha feita todos os dias."
+             </p>
+             <button class="heart-btn" id="btn-new-quote" style="margin-top:.8rem">🎲 Nova citação</button>`
+    },
+    {
+      id: 'w-stats',
+      icon: '📊',
+      title: 'Estatísticas',
+      html: `<div style="display:grid;grid-template-columns:1fr 1fr;gap:.6rem">
+               ${[['💖','Loves','1.2k'],['🌸','Flores','348'],['💌','Cartas','27'],['✨','Momentos','∞']]
+                 .map(([e,l,v]) => `<div style="background:rgba(0,0,0,.2);border-radius:8px;padding:.5rem;text-align:center">
+                   <div style="font-size:1.2rem">${e}</div>
+                   <div style="font-size:.7rem;color:var(--muted)">${l}</div>
+                   <div style="font-size:.95rem;font-weight:700;color:#fff">${v}</div>
+                 </div>`)
+                 .join('')}
+             </div>`
+    }
+  ];
+
+  const QUOTES = [
+    '"O amor não é apenas um sentimento, é uma escolha feita todos os dias."',
+    '"Amar alguém é ver um milagre invisível para os outros."',
+    '"O coração tem razões que a própria razão desconhece."',
+    '"Você é a minha pessoa favorita neste universo inteiro."',
+    '"Amor verdadeiro não tem fim, nem começo — apenas existe."',
+    '"O melhor presente que posso dar é a minha presença e afeto."',
+    '"Com você, até os segundos ordinários viram memórias eternas."',
+  ];
+
+  let loveCount = parseInt(localStorage.getItem('gabriel-love-count') || '0');
+
+  function createWidget(data) {
+    const w = document.createElement('div');
+    w.className = 'widget';
+    w.id = data.id;
+    w.draggable = true;
+    w.innerHTML = `
+      <div class="widget-handle">⠿</div>
+      <div class="widget-icon">${data.icon}</div>
+      <div class="widget-title">${data.title}</div>
+      <div class="widget-body">${data.html}</div>
+    `;
+    return w;
+  }
+
+  function buildMiniChart() {
+    const chart = document.getElementById('msg-chart');
+    if (!chart) return;
+    chart.innerHTML = '';
+    const vals = [40, 65, 55, 80, 70, 90, 75, 85, 60, 95, 88, 100];
+    const max = Math.max(...vals);
+    vals.forEach(v => {
+      const bar = document.createElement('div');
+      bar.className = 'bar-item';
+      bar.style.height = (v / max * 100) + '%';
+      chart.appendChild(bar);
+    });
+  }
+
+  function renderBoard(order) {
+    const board = document.getElementById('board');
+    board.innerHTML = '';
+    order.forEach(id => {
+      const data = WIDGETS_DATA.find(d => d.id === id);
+      if (data) board.appendChild(createWidget(data));
+    });
+    setupWidgetEvents();
+    buildMiniChart();
+    updateLoveCount();
+  }
+
+  function getSavedOrder() {
+    try {
+      const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+      if (Array.isArray(saved) && saved.length === WIDGETS_DATA.length) return saved;
+    } catch (_) {}
+    return WIDGETS_DATA.map(d => d.id);
+  }
+
+  function saveOrder() {
+    const ids = [...document.querySelectorAll('.widget')].map(w => w.id);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(ids));
+  }
+
+  let dragSrc = null;
+
+  function setupWidgetEvents() {
+    document.querySelectorAll('.widget').forEach(w => {
+      w.addEventListener('dragstart', e => {
+        dragSrc = w;
+        setTimeout(() => w.classList.add('dragging'), 0);
+        e.dataTransfer.effectAllowed = 'move';
+      });
+      w.addEventListener('dragend', () => {
+        w.classList.remove('dragging');
+        document.querySelectorAll('.widget').forEach(x => x.classList.remove('drag-over'));
+        saveOrder();
+      });
+      w.addEventListener('dragover', e => {
+        e.preventDefault();
+        if (dragSrc && dragSrc !== w) {
+          document.querySelectorAll('.widget').forEach(x => x.classList.remove('drag-over'));
+          w.classList.add('drag-over');
+        }
+      });
+      w.addEventListener('drop', e => {
+        e.preventDefault();
+        if (dragSrc && dragSrc !== w) {
+          const board = document.getElementById('board');
+          const children = [...board.children];
+          const srcIdx = children.indexOf(dragSrc);
+          const tgtIdx = children.indexOf(w);
+          if (srcIdx < tgtIdx) board.insertBefore(dragSrc, w.nextSibling);
+          else board.insertBefore(dragSrc, w);
+          w.classList.remove('drag-over');
+          saveOrder();
+          toast('Widget movido! 🎛️', 'success', 1800);
+        }
+      });
+    });
+
+    // Love clicker
+    const clicker = document.getElementById('heart-clicker');
+    if (clicker) {
+      clicker.addEventListener('click', e => {
+        loveCount++;
+        localStorage.setItem('gabriel-love-count', loveCount);
+        updateLoveCount();
+        spawnFloatingHeart(e.clientX, e.clientY);
+        // Bump vibe bar
+        const bar = document.getElementById('vibe-bar');
+        if (bar) {
+          const cur = Math.min(100, parseInt(bar.style.width) + 2);
+          bar.style.width = cur + '%';
+          bar.closest('.widget-body').querySelector('p:last-child').textContent =
+            cur + '% — ' + (cur > 95 ? 'MÁXIMO 🚀' : cur > 80 ? 'Muito Alto 🔥' : 'Alto ✨');
+        }
+      });
+    }
+
+    // Quote shuffler
+    const qBtn = document.getElementById('btn-new-quote');
+    const qText = document.getElementById('quote-text');
+    if (qBtn && qText) {
+      qBtn.addEventListener('click', () => {
+        const idx = Math.floor(Math.random() * QUOTES.length);
+        qText.textContent = QUOTES[idx];
+        qText.style.animation = 'none';
+        void qText.offsetWidth;
+        qText.style.animation = 'ctx-in .3s ease';
+      });
+    }
+  }
+
+  function updateLoveCount() {
+    const el = document.getElementById('love-count');
+    if (el) el.textContent = loveCount.toLocaleString('pt-BR');
+  }
+
+  // Reset
+  window._resetDashboard = function () {
+    localStorage.removeItem(STORAGE_KEY);
+    renderBoard(WIDGETS_DATA.map(d => d.id));
+    toast('Dashboard resetado! 🔄', 'info');
+  };
+
+  renderBoard(getSavedOrder());
+})();
+
+/* ════════════════════════════════════════════════════════════
+   3. CUSTOM RIGHT-CLICK CONTEXT MENU
+════════════════════════════════════════════════════════════ */
+(function initContextMenu() {
+  const menu = document.getElementById('ctx-menu');
+  let menuVisible = false;
+
+  function showMenu(x, y) {
+    menu.style.display = 'block';
+    // Keep in viewport
+    const mw = menu.offsetWidth  || 210;
+    const mh = menu.offsetHeight || 220;
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    menu.style.left = Math.min(x, vw - mw - 8) + 'px';
+    menu.style.top  = Math.min(y, vh - mh - 8) + 'px';
+    menuVisible = true;
+  }
+
+  function hideMenu() {
+    menu.style.display = 'none';
+    menuVisible = false;
+  }
+
+  document.addEventListener('contextmenu', e => {
+    e.preventDefault();
+    showMenu(e.clientX, e.clientY);
+  });
+
+  document.addEventListener('click', e => {
+    if (menuVisible && !menu.contains(e.target)) hideMenu();
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') hideMenu();
+  });
+
+  document.addEventListener('scroll', hideMenu, { passive: true });
+
+  menu.addEventListener('click', e => {
+    const item = e.target.closest('.ctx-item');
+    if (!item) return;
+    const action = item.dataset.action;
+    hideMenu();
+
+    switch (action) {
+      case 'heart':
+        spawnFloatingHeart(window.innerWidth / 2, window.innerHeight / 2);
+        toast('💖 Amor enviado pro Gabriel!', 'success');
+        break;
+      case 'copy':
+        copyToClipboard(window.location.href);
+        break;
+      case 'share':
+        if (navigator.share) {
+          navigator.share({ title: 'O Gabriel Tá Amando 💖', url: window.location.href });
+        } else {
+          copyToClipboard(window.location.href);
+        }
+        break;
+      case 'top':
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        break;
+      case 'dashboard':
+        document.getElementById('dashboard').scrollIntoView({ behavior: 'smooth' });
+        break;
+      case 'p2p':
+        document.getElementById('p2p').scrollIntoView({ behavior: 'smooth' });
+        break;
+      case 'reset':
+        if (typeof window._resetDashboard === 'function') window._resetDashboard();
+        break;
+    }
+  });
+})();
+
+/* ════════════════════════════════════════════════════════════
+   FLOATING HEARTS EFFECT
+════════════════════════════════════════════════════════════ */
+function spawnFloatingHeart(x, y) {
+  const hearts = ['💖','💜','💗','💕','💝','🌸','✨'];
+  const count = 4 + Math.floor(Math.random() * 4);
+  for (let i = 0; i < count; i++) {
+    const el = document.createElement('div');
+    el.className = 'float-heart';
+    el.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+    el.style.left = (x + (Math.random() - .5) * 60) + 'px';
+    el.style.top  = (y + (Math.random() - .5) * 30) + 'px';
+    el.style.animationDuration = (.9 + Math.random() * .8) + 's';
+    el.style.fontSize = (.9 + Math.random() * .8) + 'rem';
+    document.body.appendChild(el);
+    el.addEventListener('animationend', () => el.remove());
+  }
+}
+
+// Also spawn hearts on click anywhere in hero
+document.getElementById('hero').addEventListener('click', e => {
+  spawnFloatingHeart(e.clientX, e.clientY);
+});
+
+/* ════════════════════════════════════════════════════════════
+   4. P2P FILE SHARING via WebRTC DataChannel
+════════════════════════════════════════════════════════════ */
+(function initP2P() {
+  // ----- ICE servers (STUN only — fully free) -----
+  const ICE_CONFIG = {
+    iceServers: [
+      { urls: 'stun:stun.l.google.com:19302' },
+      { urls: 'stun:stun1.l.google.com:19302' }
+    ]
+  };
+
+  const CHUNK_SIZE = 16384; // 16 KB chunks
+
+  // ── DOM refs ──
+  const btnCreateOffer  = document.getElementById('btn-create-offer');
+  const btnCopyOffer    = document.getElementById('btn-copy-offer');
+  const btnSetAnswer    = document.getElementById('btn-set-answer');
+  const btnCreateAnswer = document.getElementById('btn-create-answer');
+  const btnCopyAnswer   = document.getElementById('btn-copy-answer');
+  const btnSendFiles    = document.getElementById('btn-send-files');
+  const offerOut   = document.getElementById('offer-out');
+  const answerIn   = document.getElementById('answer-in');
+  const offerIn    = document.getElementById('offer-in');
+  const answerOut  = document.getElementById('answer-out');
+  const dropZone   = document.getElementById('drop-zone');
+  const fileInput  = document.getElementById('file-input');
+  const sendQueue  = document.getElementById('send-queue');
+  const recvQueue  = document.getElementById('recv-queue');
+  const logEl      = document.getElementById('p2p-log');
+  const dotA       = document.getElementById('dot-a');
+  const dotB       = document.getElementById('dot-b');
+  const statusA    = document.getElementById('status-a');
+  const statusB    = document.getElementById('status-b');
+
+  let pcA = null; // Peer A (sender)
+  let pcB = null; // Peer B (receiver)
+  let channelA = null;
+  let channelB = null;
+  let pendingFiles = [];
+
+  // Receiver state
+  let recvMeta = null;
+  let recvBuffers = [];
+  let recvBytes = 0;
+
+  // ── Logging ──
+  function log(msg, type = '') {
+    const line = document.createElement('div');
+    line.className = 'log-line ' + type;
+    line.textContent = '[' + new Date().toLocaleTimeString('pt-BR') + '] ' + msg;
+    logEl.appendChild(line);
+    logEl.scrollTop = logEl.scrollHeight;
+  }
+
+  function setStatusA(s, state) {
+    statusA.textContent = s;
+    dotA.className = 'dot' + (state ? ' ' + state : '');
+  }
+  function setStatusB(s, state) {
+    statusB.textContent = s;
+    dotB.className = 'dot' + (state ? ' ' + state : '');
+  }
+
+  // ── Create RTCPeerConnection helper ──
+  function makePeer(label, onIceGathered) {
+    const pc = new RTCPeerConnection(ICE_CONFIG);
+    pc.addEventListener('icecandidate', e => {
+      if (e.candidate === null) {
+        log('ICE gathering completo para ' + label, 'ok');
+        onIceGathered(pc.localDescription);
+      }
+    });
+    pc.addEventListener('iceconnectionstatechange', () => {
+      log(label + ' ICE: ' + pc.iceConnectionState);
+      if (pc.iceConnectionState === 'connected' || pc.iceConnectionState === 'completed') {
+        if (label === 'PeerA') setStatusA('Conectado ✅', 'connected');
+        if (label === 'PeerB') setStatusB('Conectado ✅', 'connected');
+        btnSendFiles.disabled = pendingFiles.length === 0;
+        toast('🔗 P2P conectado!', 'success');
+      }
+      if (pc.iceConnectionState === 'failed' || pc.iceConnectionState === 'disconnected') {
+        if (label === 'PeerA') setStatusA('Desconectado', '');
+        if (label === 'PeerB') setStatusB('Desconectado', '');
+      }
+    });
+    return pc;
+  }
+
+  // ── PEER A: create offer ──
+  btnCreateOffer.addEventListener('click', async () => {
+    btnCreateOffer.disabled = true;
+    log('Criando PeerConnection A...', 'info');
+    setStatusA('Conectando...', 'connecting');
+
+    pcA = makePeer('PeerA', desc => {
+      offerOut.value = JSON.stringify(desc);
+      log('Oferta pronta! Copie e cole em Peer B.', 'ok');
+      toast('Oferta criada! Copie e envie para Peer B 📋', 'info');
+    });
+
+    channelA = pcA.createDataChannel('gabriel-files', { ordered: true });
+    setupChannelA(channelA);
+
+    try {
+      const offer = await pcA.createOffer();
+      await pcA.setLocalDescription(offer);
+      log('Aguardando coleta de ICE candidates...', 'info');
+    } catch (err) {
+      log('Erro ao criar oferta: ' + err.message, 'err');
+      toast('Erro ao criar oferta', 'error');
+      btnCreateOffer.disabled = false;
+    }
+  });
+
+  // ── PEER A: set answer ──
+  btnSetAnswer.addEventListener('click', async () => {
+    const raw = answerIn.value.trim();
+    if (!raw || !pcA) { toast('Cole a resposta primeiro!', 'error'); return; }
+    try {
+      const desc = JSON.parse(raw);
+      await pcA.setRemoteDescription(new RTCSessionDescription(desc));
+      log('Resposta aceita. Aguardando conexão...', 'ok');
+      setStatusA('Aguardando...', 'connecting');
+    } catch (err) {
+      log('Erro ao aceitar resposta: ' + err.message, 'err');
+      toast('Resposta inválida ❌', 'error');
+    }
+  });
+
+  // ── PEER B: create answer ──
+  btnCreateAnswer.addEventListener('click', async () => {
+    const raw = offerIn.value.trim();
+    if (!raw) { toast('Cole a oferta primeiro!', 'error'); return; }
+
+    btnCreateAnswer.disabled = true;
+    log('Criando PeerConnection B...', 'info');
+    setStatusB('Conectando...', 'connecting');
+
+    pcB = makePeer('PeerB', desc => {
+      answerOut.value = JSON.stringify(desc);
+      log('Resposta pronta! Copie e cole em Peer A.', 'ok');
+      toast('Resposta criada! Copie e envie para Peer A 📋', 'info');
+    });
+
+    pcB.addEventListener('datachannel', e => {
+      channelB = e.channel;
+      setupChannelB(channelB);
+      log('Canal de dados recebido em Peer B', 'ok');
+    });
+
+    try {
+      const offerDesc = JSON.parse(raw);
+      await pcB.setRemoteDescription(new RTCSessionDescription(offerDesc));
+      const answer = await pcB.createAnswer();
+      await pcB.setLocalDescription(answer);
+      log('Aguardando coleta de ICE candidates para B...', 'info');
+    } catch (err) {
+      log('Erro ao criar resposta: ' + err.message, 'err');
+      toast('Oferta inválida ❌', 'error');
+      btnCreateAnswer.disabled = false;
+    }
+  });
+
+  // ── Copy helpers ──
+  btnCopyOffer.addEventListener('click',  () => { if (offerOut.value) copyToClipboard(offerOut.value); else toast('Crie a oferta primeiro!', 'error'); });
+  btnCopyAnswer.addEventListener('click', () => { if (answerOut.value) copyToClipboard(answerOut.value); else toast('Crie a resposta primeiro!', 'error'); });
+
+  // ── Channel A setup (sender side) ──
+  function setupChannelA(ch) {
+    ch.binaryType = 'arraybuffer';
+    ch.addEventListener('open',  () => log('Canal A aberto ✅', 'ok'));
+    ch.addEventListener('close', () => log('Canal A fechado', ''));
+    ch.addEventListener('error', e => log('Erro no canal A: ' + e.message, 'err'));
+    ch.addEventListener('message', e => {
+      // Receive ack from B
+      if (typeof e.data === 'string') {
+        try {
+          const msg = JSON.parse(e.data);
+          if (msg.type === 'ack') log('Arquivo recebido pelo Peer B: ' + msg.name, 'ok');
+        } catch(_) {}
+      }
+    });
+  }
+
+  // ── Channel B setup (receiver side) ──
+  function setupChannelB(ch) {
+    ch.binaryType = 'arraybuffer';
+    ch.addEventListener('open',  () => log('Canal B aberto ✅', 'ok'));
+    ch.addEventListener('close', () => log('Canal B fechado', ''));
+    ch.addEventListener('error', e => log('Erro no canal B: ' + e.message, 'err'));
+    ch.addEventListener('message', e => {
+      if (typeof e.data === 'string') {
+        try {
+          const msg = JSON.parse(e.data);
+          if (msg.type === 'file-start') {
+            recvMeta = msg;
+            recvBuffers = [];
+            recvBytes = 0;
+            addRecvItem(msg.name, msg.size);
+            log('Recebendo: ' + msg.name + ' (' + formatBytes(msg.size) + ')', 'info');
+          } else if (msg.type === 'file-end') {
+            const blob = new Blob(recvBuffers, { type: recvMeta.mime || 'application/octet-stream' });
+            const url  = URL.createObjectURL(blob);
+            finishRecvItem(recvMeta.name, url);
+            log('Arquivo completo: ' + recvMeta.name, 'ok');
+            toast('📥 Arquivo recebido: ' + recvMeta.name, 'success');
+            ch.send(JSON.stringify({ type: 'ack', name: recvMeta.name }));
+            recvMeta = null;
+            recvBuffers = [];
+            recvBytes = 0;
+          }
+        } catch(_) {}
+      } else {
+        // Binary chunk
+        recvBuffers.push(e.data);
+        recvBytes += e.data.byteLength;
+        if (recvMeta) updateRecvProgress(recvMeta.name, recvBytes / recvMeta.size);
+      }
+    });
+  }
+
+  // ── File input / drop zone ──
+  dropZone.addEventListener('click', () => fileInput.click());
+  dropZone.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') fileInput.click(); });
+  fileInput.addEventListener('change', () => addFiles([...fileInput.files]));
+
+  dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('active'); });
+  dropZone.addEventListener('dragleave', () => dropZone.classList.remove('active'));
+  dropZone.addEventListener('drop', e => {
+    e.preventDefault();
+    dropZone.classList.remove('active');
+    addFiles([...e.dataTransfer.files]);
+  });
+
+  function addFiles(files) {
+    files.forEach(f => {
+      if (!pendingFiles.find(p => p.name === f.name && p.size === f.size)) {
+        pendingFiles.push(f);
+        addSendItem(f);
+      }
+    });
+    const connected = channelA && channelA.readyState === 'open';
+    btnSendFiles.disabled = pendingFiles.length === 0 || !connected;
+    if (pendingFiles.length > 0 && !connected)
+      toast('Arquivos adicionados. Conecte ao peer para enviar.', 'info');
+  }
+
+  function addSendItem(file) {
+    const item = document.createElement('div');
+    item.className = 'file-item';
+    item.id = 'send-' + file.name.replace(/\W/g, '_');
+    item.innerHTML = `
+      <span>📄</span>
+      <span class="file-item-name">${file.name}</span>
+      <span class="file-item-size">${formatBytes(file.size)}</span>
+      <div style="width:100%;grid-column:1/-1">
+        <div class="xfer-bar"><div class="xfer-fill" style="width:0%"></div></div>
+      </div>
+    `;
+    sendQueue.appendChild(item);
+  }
+
+  function updateSendProgress(name, pct) {
+    const id = 'send-' + name.replace(/\W/g, '_');
+    const el = document.getElementById(id);
+    if (el) el.querySelector('.xfer-fill').style.width = (pct * 100) + '%';
+  }
+
+  function addRecvItem(name, size) {
+    // Clear placeholder
+    const placeholder = recvQueue.querySelector('[style*="Aguardando"]');
+    if (placeholder) placeholder.remove();
+
+    const item = document.createElement('div');
+    item.className = 'file-item';
+    item.id = 'recv-' + name.replace(/\W/g, '_');
+    item.innerHTML = `
+      <span>📄</span>
+      <span class="file-item-name">${name}</span>
+      <span class="file-item-size">${formatBytes(size)}</span>
+      <div style="width:100%">
+        <div class="xfer-bar"><div class="xfer-fill" style="width:0%"></div></div>
+      </div>
+    `;
+    recvQueue.appendChild(item);
+  }
+
+  function updateRecvProgress(name, pct) {
+    const id = 'recv-' + name.replace(/\W/g, '_');
+    const el = document.getElementById(id);
+    if (el) el.querySelector('.xfer-fill').style.width = (pct * 100) + '%';
+  }
+
+  function finishRecvItem(name, url) {
+    const id = 'recv-' + name.replace(/\W/g, '_');
+    const el = document.getElementById(id);
+    if (el) {
+      el.querySelector('.xfer-fill').style.width = '100%';
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = name;
+      a.className = 'btn btn-secondary btn-sm';
+      a.style.marginTop = '.4rem';
+      a.textContent = '⬇️ Baixar';
+      el.appendChild(a);
+    }
+  }
+
+  // ── Send files ──
+  btnSendFiles.addEventListener('click', async () => {
+    if (!channelA || channelA.readyState !== 'open') {
+      toast('Canal não está aberto!', 'error');
+      return;
+    }
+    btnSendFiles.disabled = true;
+
+    for (const file of pendingFiles) {
+      log('Enviando: ' + file.name + ' (' + formatBytes(file.size) + ')', 'info');
+      channelA.send(JSON.stringify({
+        type: 'file-start',
+        name: file.name,
+        size: file.size,
+        mime: file.type
+      }));
+
+      const buffer = await file.arrayBuffer();
+      let offset = 0;
+      while (offset < buffer.byteLength) {
+        // Respect buffer backpressure
+        while (channelA.bufferedAmount > CHUNK_SIZE * 8) {
+          await new Promise(r => setTimeout(r, 10));
+        }
+        const chunk = buffer.slice(offset, offset + CHUNK_SIZE);
+        channelA.send(chunk);
+        offset += chunk.byteLength;
+        updateSendProgress(file.name, offset / buffer.byteLength);
+      }
+
+      channelA.send(JSON.stringify({ type: 'file-end', name: file.name }));
+      log('Envio completo: ' + file.name, 'ok');
+      toast('✅ Enviado: ' + file.name, 'success');
+    }
+
+    pendingFiles = [];
+    btnSendFiles.disabled = true;
+  });
+})();
+</script>
+</body>
+</html>
